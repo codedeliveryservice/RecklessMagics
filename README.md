@@ -1,5 +1,7 @@
 # Reckless Magics
 
+[![Rust](https://github.com/codedeliveryservice/RecklessMagics/actions/workflows/rust.yml/badge.svg)](https://github.com/codedeliveryservice/RecklessMagics/actions/workflows/rust.yml)
+
 Implementation of the magic number generation algorithm used for [Fancy Magic Bitboards][fancy-bitboards].
 
 ## Implementation
