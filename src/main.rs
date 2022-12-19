@@ -16,7 +16,7 @@ fn main() {
 
 fn print_struct() {
     println!("#[rustfmt::skip]");
-    println!("pub struct MagicEntry {{ pub mask: u64, pub magic: u64, pub shift: u32, pub offset: u32 }}");
+    println!("pub struct MagicEntry {{ pub mask: u64, pub magic: u64, pub shift: u32, pub offset: usize }}");
     println!();
 }
 
