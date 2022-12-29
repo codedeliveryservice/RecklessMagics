@@ -6,11 +6,11 @@ Implementation of the magic number generation algorithm used for [Fancy Magic Bi
 
 ## Implementation
 
-The generator is based on a modified [Tord Romstad's proposal][proposal], originally written for Plain Magic Bitboards.
+The generator is based on a modified [Tord Romstad's proposal][proposal], originally written for [Plain Magic Bitboards][plain-bitboards].
 
-Fancy Bitboards refers to an enchanted version with individual table sizes for each square to reduce the total size significantly (841 KiB against 2304 KiB), due to empty elements elimination.
+[Fancy Magic Bitboards][fancy-bitboards] is an improved version with individual table sizes for each square, which significantly reduces the overall size by eliminating empty elements (841 KiB against 2304 KiB).
 
-Each generated magic entry, in addition to the `magic` number used as the hash factor, also contains `offset` used to refer to a particular table of the specified square. To speed up the lookup, `mask` of the relevant occupancy bits and `offset` precomputed as `64 - relevant_bit_count` are also stored as part of the entry.
+Each generated magic entry, in addition to the `magic` number used as a hash factor, also contains an `offset` used to refer to a particular table of the specified square. To speed up the lookup, the `mask` of the relevant occupancy bits and the `offset` pre-calculated as `64 - relevant_bit_count` are also stored as part of the entry.
 
 For example, the output of the first 3 entries for rooks is:
 
@@ -38,3 +38,4 @@ This project is licensed with the [MIT license](LICENSE).
 
 [proposal]: https://www.chessprogramming.org/Looking_for_Magics#Feeding_in_Randoms
 [fancy-bitboards]: https://www.chessprogramming.org/Magic_Bitboards#Fancy
+[plain-bitboards]: https://www.chessprogramming.org/Magic_Bitboards#Plane
