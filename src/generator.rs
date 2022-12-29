@@ -14,15 +14,7 @@ pub fn generate_magic_number(directions: &[i8], square: i8, random: &mut Random)
     let mask = attacks::get_relevant_occupancies(directions, square);
     let size = 1 << mask.count_ones();
 
-    let mut expected = vec![0; size];
-
-    // Populate expected attacks for all occupancy sets by iterating over all attack mask subsets
-    // https://www.chessprogramming.org/Traversing_Subsets_of_a_Set#All_Subsets_of_any_Set
-    let mut occupancies = 0u64;
-    for attacks in expected.iter_mut() {
-        *attacks = attacks::get_attacks(directions, square, occupancies);
-        occupancies = occupancies.wrapping_sub(mask) & mask;
-    }
+    let expected = generate_attacks(size, directions, square, mask);
 
     // Use some kind of safety counter
     for _ in 0..1_000_000 {
@@ -44,6 +36,20 @@ pub fn generate_magic_number(directions: &[i8], square: i8, random: &mut Random)
 
     // We should never get here due to the use of PRNG!
     panic!("Magic number not found")
+}
+
+/// Generate an attack map for the square in the specified directions.
+fn generate_attacks(size: usize, directions: &[i8], square: i8, mask: u64) -> Vec<u64> {
+    let mut map = vec![0; size];
+
+    // Populate the expected attacks for all occupancy sets by iterating over all subsets of the attack mask
+    // https://www.chessprogramming.org/Traversing_Subsets_of_a_Set#All_Subsets_of_any_Set
+    let mut occupancies = 0u64;
+    for attacks in map.iter_mut() {
+        *attacks = attacks::get_attacks(directions, square, occupancies);
+        occupancies = occupancies.wrapping_sub(mask) & mask;
+    }
+    map
 }
 
 /// The error type returned when magic number fails and causes a collision.
