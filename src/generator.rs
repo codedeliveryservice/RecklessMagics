@@ -64,8 +64,7 @@ fn try_magic_number(mask: u64, magic: u64, expected: &[u64]) -> Result<(), Magic
     for &attacks in expected.iter() {
         let hash = (occupancies.wrapping_mul(magic) >> shift) as usize;
 
-        // Detected a collision, so the magic number doesn't work
-        if actual[hash] != 0 && actual[hash] != attacks {
+        if is_collision_detected(&actual, hash, attacks) {
             return Err(MagicNumberCollision);
         }
 
@@ -74,4 +73,10 @@ fn try_magic_number(mask: u64, magic: u64, expected: &[u64]) -> Result<(), Magic
     }
 
     Ok(())
+}
+
+/// Determines if the given hash causes a collision.
+#[inline(always)]
+fn is_collision_detected(actual: &[u64], hash: usize, attacks: u64) -> bool {
+    actual[hash] != 0 && actual[hash] != attacks
 }
