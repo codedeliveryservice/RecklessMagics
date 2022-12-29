@@ -67,10 +67,12 @@ fn distance_to_edge(square: i8, direction: i8) -> i8 {
     }
 }
 
+#[inline(always)]
 fn rank(square: i8) -> i8 {
     square / 8
 }
 
+#[inline(always)]
 fn file(square: i8) -> i8 {
     square % 8
 }
