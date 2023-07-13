@@ -8,7 +8,7 @@ Implementation of the magic number generation algorithm used for [Fancy Magic Bi
 
 The generator is based on a modified [Tord Romstad's proposal][proposal], originally written for [Plain Magic Bitboards][plain-bitboards].
 
-[Fancy Magic Bitboards][fancy-bitboards] is an improved version with individual table sizes for each square, which significantly reduces the overall size by eliminating empty elements (841 KiB against 2304 KiB).
+[Fancy Magic Bitboards][fancy-bitboards] is an improved version with individual table sizes for each square, which significantly reduces the overall size by eliminating empty elements (841 KB against 2304 KB).
 
 Each generated magic entry, in addition to the `magic` number used as a hash factor, also contains an `offset` used to refer to a particular table of the specified square. To speed up the lookup, the `mask` of the relevant occupancy bits and the `offset` pre-calculated as `64 - relevant_bit_count` are also stored as part of the entry.
 
